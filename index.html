@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <!-- Nevbar work here///     -->
+
+    <div class="main">
+        <div class="main-container-div">
+            <div class="first-div">
+                <div id="my-first" class="div-heading" style="text-align: center;">Personal info</div>
+            </div>
+            <div class="vl"></div>
+        </div>
+        <div class="second-div">
+            <div class="div-heading" style="text-align: center;">Company info</div>
+        </div>
+        <div class="vl"></div>
+        <div class="second-div">
+            <div class="div-heading" style="text-align: center;">EIN/ Tax id</div>
+        </div>
+        <div class="vl"></div>
+        <div class="second-div">
+            <div class="div-heading" style="text-align: center;">Reseller Permit</div>
+        </div>
+        <div class="vl"></div>
+        <div class="second-div">
+            <div class="div-heading" style="text-align: center;">Confirmation</div>
+        </div>
+        <div class="vl"></div>
+        <div class="last-div">
+            <div class="div-heading" style="text-align: center;">Payment Method</div>
+        </div>
+    </div>
+
+    <!-- here next and previous button work/// -->
+    <div class="button">
+
+        <button class="next-btn" onclick="onPrevious()">Previous</button>
+
+        <button class="previous-btn" onclick="onNext()">Next</button>
+
+    </div>
+
+    <script>
+
+
+        const divHeadings = document.querySelectorAll('.div-heading');
+        const previousButton = document.getElementById('previous');
+        const nextButton = document.getElementById('next');
+        var currentIndex = 0;
+        var lastPreviousIndex = 0;
+
+        function selectDivHeading(index, inputColor, previousOrNext) {
+            // Add the 'selected' class to the current div heading
+            if (index < 6) {
+
+                if (previousOrNext === 'next') {
+
+                    divHeadings[index].classList.add(inputColor);
+                    // Update the current index
+                    currentIndex++;
+                    lastPreviousIndex = currentIndex;
+                    // Remove the 'selected' class from all other div headings
+
+                    if (index === 5) {
+                        currentIndex = 5
+                    }
+
+                } else {
+
+                    if (lastPreviousIndex > 0) {
+
+                        divHeadings[lastPreviousIndex - 1].classList.remove(inputColor);
+                        lastPreviousIndex--
+                        currentIndex = lastPreviousIndex
+
+                    }
+
+                }
+
+
+
+            }
+
+        }
+
+        // Add event listener to the next button
+
+        function onNext() {
+
+            event.preventDefault();
+            let nextIndex;
+            if (this.currentIndex === 0) {
+                // Select the first div heading
+                nextIndex = currentIndex;
+                console.log(currentIndex)
+            } else {
+                // Calculate the next index
+                if (currentIndex < 6) {
+
+                    nextIndex = (currentIndex) % divHeadings.length;
+                    console.log(currentIndex)
+                }
+
+
+            }
+            // Select the next div heading
+            selectDivHeading(nextIndex, 'selected', 'next');
+        }
+
+
+
+
+        // Add event listener to the previous button
+
+        function onPrevious() {
+
+            event.preventDefault();
+            let nextIndex;
+
+            nextIndex = currentIndex;
+
+            // Select the next div heading
+            selectDivHeading(nextIndex, 'selected', 'previous');
+
+
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>
